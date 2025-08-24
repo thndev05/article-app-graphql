@@ -1,5 +1,26 @@
 export const typeDefs = `#graphql
+  type Article {
+    id: ID,
+    title: String,
+    avatar: String,
+    description: String,  
+  }
+
   type Query {
-    hello: String
+    hello: String,
+    getListArticle: [Article]
+    getArticle(id: ID): Article
+  }
+
+  input ArticleInput {
+    title: String,
+    avatar: String,
+    description: String,
+  }
+
+  type Mutation {
+    createArticle(article: ArticleInput): Article,
+    deleteArticle(id: ID): String
+    updateArticle(id: ID, article: ArticleInput): Article
   }
 `;

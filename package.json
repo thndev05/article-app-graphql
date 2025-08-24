@@ -15,7 +15,6 @@
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "graphql": "^16.11.0",
-    "graphql-tag": "^2.12.6",
     "mongoose": "^8.17.2"
   },
   "devDependencies": {
