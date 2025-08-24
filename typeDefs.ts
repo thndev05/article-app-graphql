@@ -3,7 +3,8 @@ export const typeDefs = `#graphql
     id: ID,
     title: String,
     avatar: String,
-    description: String,  
+    description: String,
+    category: Category
   }
 
   type Category {
