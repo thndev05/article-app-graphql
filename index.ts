@@ -1,11 +1,11 @@
-import express, { Express, Request, Response } from 'express';
+import express, { Express } from 'express';
 import * as database from './config/database'
 import dotenv from 'dotenv';
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from '@as-integrations/express5';
 // import { startStandaloneServer } from "@apollo/server/standalone";
-import { typeDefs } from './typeDefs';
-import { resolvers } from './resolvers';
+import { typeDefs } from './typeDefs/index.typeDefs';
+import { resolvers } from './resolvers/index.resolvers';
 
 const startServer = async () => {
   dotenv.config();
@@ -18,7 +18,10 @@ const startServer = async () => {
   app.use(express.json());
 
   // GraphQL
-  const apolloServer = new ApolloServer({ typeDefs, resolvers });
+  const apolloServer = new ApolloServer({ 
+    typeDefs: typeDefs, 
+    resolvers: resolvers 
+  });
   await apolloServer.start();
 
   // Cách 1: Khởi động GraphQL server riêng biệt  
