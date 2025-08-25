@@ -8,8 +8,14 @@ export const resolversArticle = {
         sortKey, 
         sortValue, 
         currentPage,
-        limitItem
+        limitItem,
+        filterKey,
+        filterValue
       } = args;
+
+      const find: any = { 
+        deleted: false 
+      };
 
       // sort
       const sort: any = {};
@@ -22,11 +28,16 @@ export const resolversArticle = {
       const skip: number = (currentPage - 1) * limitItem;
       //end pagination
 
-      const articles = await Article.find({ 
-        deleted: false 
-      }).sort(sort)
-      .limit(limitItem)
-      .skip(skip);
+      // filter
+      if (filterKey && filterValue) {
+        find[filterKey] = filterValue;
+      }
+      // end filter
+
+      const articles = await Article.find(find)
+        .sort(sort)
+        .limit(limitItem)
+        .skip(skip);
 
       return articles;
     },
