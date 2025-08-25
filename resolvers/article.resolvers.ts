@@ -10,7 +10,8 @@ export const resolversArticle = {
         currentPage,
         limitItem,
         filterKey,
-        filterValue
+        filterValue,
+        keyword
       } = args;
 
       const find: any = { 
@@ -33,6 +34,16 @@ export const resolversArticle = {
         find[filterKey] = filterValue;
       }
       // end filter
+
+      // search
+      if (keyword) {
+        const regex = new RegExp(keyword, 'i');
+        find['$or'] = [
+          { title: { $regex: regex } },
+          { description: { $regex: regex } }
+        ];
+      }
+      // end search
 
       const articles = await Article.find(find)
         .sort(sort)
