@@ -6,10 +6,12 @@ export const resolversArticle = {
     getListArticle: async (_: any, args: any) => {
       const { sortKey, sortValue } = args;
 
+      // sort
       const sort: any = {};
       if (sortKey && sortValue) { 
         sort[sortKey] = sortValue
       }
+      // end sort
 
       const articles = await Article.find({ 
         deleted: false 
