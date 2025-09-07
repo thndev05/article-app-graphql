@@ -76,7 +76,11 @@ export const resolversArticle = {
     }
   },
   Mutation: {
-    createArticle: async (_: any, args: any) => {
+    createArticle: async (_: any, args: any, context: any) => {
+      if (!context.user) {
+        throw new Error("Unauthorized - Token required");
+      }
+
       const { article } = args;
 
       const newArticle = new Article({
@@ -87,7 +91,11 @@ export const resolversArticle = {
 
       return newArticle;
     },
-    deleteArticle: async (_: any, args: any) => {
+    deleteArticle: async (_: any, args: any, context: any) => {
+      if (!context.user) {
+        throw new Error("Unauthorized - Token required");
+      }
+
       const { id } = args;
 
       await Article.findByIdAndUpdate({
@@ -99,7 +107,11 @@ export const resolversArticle = {
 
       return "Delete article successfully!";
     },
-    updateArticle: async (_: any, args: any) => {
+    updateArticle: async (_: any, args: any, context: any) => {
+      if (!context.user) {
+        throw new Error("Unauthorized - Token required");
+      }
+
       const { id, article } = args;
 
       await Article.updateOne({

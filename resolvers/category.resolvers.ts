@@ -22,7 +22,11 @@ export const resolversCategory = {
     },
   },
   Mutation: {
-    createCategory: async (_: any, args: any) => {
+    createCategory: async (_: any, args: any, context: any) => {
+      if (!context.user) {
+        throw new Error("Unauthorized - Token required");
+      }
+
       const { category } = args;
 
       const newCategory = new Article({
@@ -33,7 +37,11 @@ export const resolversCategory = {
 
       return newCategory;
     },
-    deleteCategory: async (_: any, args: any) => {
+    deleteCategory: async (_: any, args: any, context: any) => {
+      if (!context.user) {
+        throw new Error("Unauthorized - Token required");
+      }
+
       const { id } = args;
 
       await Category.findByIdAndUpdate({
@@ -45,7 +53,11 @@ export const resolversCategory = {
 
       return "Delete category successfully!";
     },
-    updateCategory: async (_: any, args: any) => {
+    updateCategory: async (_: any, args: any, context: any) => {
+      if (!context.user) {
+        throw new Error("Unauthorized - Token required");
+      }
+
       const { id, category } = args;
 
       await Category.updateOne({
