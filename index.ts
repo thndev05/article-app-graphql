@@ -21,7 +21,8 @@ const startServer = async () => {
   // GraphQL
   const apolloServer = new ApolloServer({ 
     typeDefs: typeDefs, 
-    resolvers: resolvers
+    resolvers: resolvers,
+    introspection: true
   });
   await apolloServer.start();
 
